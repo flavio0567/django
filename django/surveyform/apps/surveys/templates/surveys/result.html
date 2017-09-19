@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <!-- The line above tells Django to be ready to listen for static files -->
+    <link rel="stylesheet" href="{% static 'surveys/css/style.css' %}" media="screen" title="no title"  charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/sandstone/bootstrap.min.css">
+    <title>Django Surveys Assigment</title>
+</head>
+<body>
+
+    <div class="box1">
+            <p>Thanks for submitting this form! You have submitted this form {{ request.session.attempt }} now</p>
+        </div>
+  
+        <form class="form-group" action="/" method="post">
+            {% csrf_token %}
+            <div class="box">
+                <h4>Submitted information</h4>
+                <tr>
+                    <td>Name: {{ request.session.name }}</td><br>
+                    <td>Location: {{ request.session.location }}</td><br>
+                    <td>Language {{ request.session.language }}</td><br>
+                    <td>Comment: {{ request.session.comment }}</td>
+                </tr>
+            </div>
+            <button type="submit" class="btn btn0 btn-primary">Go Back</button>
+        </form>
+    </div>
+    
+</body>
+</html>

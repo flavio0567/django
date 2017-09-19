@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% load static %}
+        <!-- The line above tells Django to be ready to listen for static files -->
+        <link rel="stylesheet" href="{% static 'surveys/css/style.css' %}" media="screen" title="no title"  charset="utf-8">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/sandstone/bootstrap.min.css">
+        <title>Django Surveys Assigment</title>
+    </head>
+    <body>
+        
+        <form class="form-group" action="/surveys/process" method="post">
+            <div class="box0"> 
+                {% csrf_token %}
+                <label class="col-lg-2" for="id_name">Your Name</label>
+                <input type="text" class="form-control" name="inputName">  
+                <div class="col-lg-10">
+                    <label class="col-lg-2 control-label" for="id_location">Dojo Location</label>
+                    <select class="form-control" name="selectLoc">
+                        <option>Silicon Valley</option>
+                        <option>Seattle</option>
+                        <option>Los Angeles</option>
+                        <option>Washington DC</option>
+                        <option>Dallas</option>
+                        <option>Chicago</option>
+                        <option>Tulsa</option>
+                    </select>
+                    <label class="col-lg-2 control-label" for="id_language">Favorite Language</label>
+                    <select class="form-control" name="selectLang">
+                        <option>Python</option>
+                        <option>Java</option>
+                        <option>Mean</option>
+                        <option>C++</option>
+                        <option>iOS</option>
+                        <option>Ruby</option>
+                    </select>
+                    <label class="col-lg-2" for="id_comment">Comment (optional)</label>
+                    <textarea class="form-control" rows="3" name="comment"></textarea>
+                </div>
+
+                <div class="col-lg-10 col-lg-offset-2">
+                    <button type="reset" class="btn1 btn btn-default">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </form>
+    </body>
+</html>
