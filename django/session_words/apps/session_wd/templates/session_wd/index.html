@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% load static %}
+        <!-- The line above tells Django to be ready to listen for static files -->
+        <link rel="stylesheet" href="{% static 'session_wd/css/style.css' %}" media="screen" title="no title"  charset="utf-8">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/sandstone/bootstrap.min.css">
+        <title>Django Session Word Assignment</title>
+    </head>
+    <body>
+        <div style="width: 100%;">
+            <div style="float:left; width: 50%">
+                <form class="form-horizontal" action="/word" method="POST">
+                    {% csrf_token %}
+                    <fieldset>
+                        <legend>Add a New Word</legend>
+                        <div class="form-group">
+
+                            <div class="col-lg-10">
+                                <input class="form-control" name="addedword" id="addedword" type="text">
+                            </div>
+
+                            <div class="col-lg-10">
+                                <div class="checkbox">
+                                    <label for="bigword">
+                                        <input type="checkbox" name="bigword" value="displaybig" id="bigword"> show a BIG font
+                                    </label>
+                                </div>
+                            </div>
+
+                            
+                            <div class="col-lg-10">
+                                <label class="col-lg-2 control-label">Choose color</label>
+                                <div class="radio">
+                                    <label for="red">
+                                        <input name="color" id="red" value="red" checked="" type="radio">
+                                        Red
+                                    </label>
+                                    <label for="green">
+                                        <input name="color" id="green" value="green" type="radio">
+                                        Green
+                                    </label>
+                                    <label for="blue">
+                                        <input name="color" id="blue" value="blue" type="radio">
+                                        Blue
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-lg-10 col-lg-offset-2">
+                                <button type="reset" class="btn btn-default btn-sm">Cancel</button>
+                                <button type="submit" class="btn btn-primary btn-sm" id="word">Add to Session</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+
+            <div style="float:right; width: 50%">
+
+
+                <form class="form-horizontal" action="/clear" method="POST">  {% csrf_token %}
+                        <div class="col-lg-10 col-lg-offset-2">
+                        <button type="submit" class="btn btn-primary btn-sm" id="clear">Clear Session</button>
+                    </div>
+                </form>
+                <div id="words">
+                    {% if request.session.data %}
+                        {% for word in request.session.data %}
+                            <p><span style="color:{{ word.color }}" class="{{ word.size }}"> {{ word.addedword }}</span> - added on {{ word.created_at }}</p>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
