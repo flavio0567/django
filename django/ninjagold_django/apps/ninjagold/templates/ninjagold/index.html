@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>        
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'ninjagold/css/style.css' %}" media="screen" title="no title"  charset="utf-8">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/sandstone/bootstrap.min.css">
+        <title>Ninja Gold Django Assignment</title>
+    </head>
+    <body>
+
+        <div class="container">
+
+        <h4>Your Gold: {{ request.session.gold }}</h4>         
+        
+        <div id="left">   
+            <h3>Farm</h3>
+            <p>(earns 10-20 golds)</p>
+            <form id="form1" method="post" action="/process_money">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="farm">
+                <button class="btn btn-primary" type="submit" value="Submit">Find Gold!</button>
+            </form> 
+        </div>
+
+        <div id="mid_1">
+            <h3>Cave</h3>
+            <p>(earns 5-10 golds)</p>
+            <form id="form1" method="post" action="/process_money">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="cave">
+                <button class="btn btn-primary" type="submit" value="Submit">Find Gold!</button>
+            </form> 
+        </div>
+
+        <div id="left">   
+            <h3>House</h3>
+            <p>(earns 2-5 golds)</p>
+            <form method="post" action="/process_money">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="house">
+                <button class="btn btn-primary" type="submit" value="Submit">Find Gold!</button>
+            </form> 
+        </div>
+        
+        <div id="right">
+            <h3>Casino</h3>
+            <p>(earns/takes 0-50 golds)</p>
+            <form method="post" action="/process_money"> 
+                {% csrf_token %}
+                <input type="hidden" name="action" value="casino">        
+                <button class="btn btn-primary" type="submit" value="Submit">Find Gold!</button>
+            </form> 
+        </div>
+
+        <div id="scroll">  
+            <h3>Activities:</h3>
+            <div class="row">
+                <div class="activity">
+                    {% if request.session.activity %}
+                    <ul>
+                        {% for class, act in request.session.activity %}
+                            <li class={{class}}>{{act}}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <form method="post" action="/clear"> 
+            {% csrf_token %}       
+            <button class="btn btn-primary btn-sm" type="submit" value="Submit">Clear</button>
+        </form> 
+
+    </div>    
+</body>
+</html>
