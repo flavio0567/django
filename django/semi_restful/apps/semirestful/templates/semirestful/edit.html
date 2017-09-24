@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'semirestful/css/style.css' %}" media="screen" title="no title"  charset="utf-8">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/sandstone/bootstrap.min.css">
+        <title>Edit</title>
+    </head>
+    <body>
+        <h1>Edit user {{ user.id }}</h1>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <form class="form-group" action="/users/{{user.id}}"  method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label class="col-lg-2 control-label" for="id_first">Frist Name:</label>
+                <input type="text" class="form-control" name="first_name" value="{{user.first_name}}">  
+            
+                <label class="col-lg-2 control-label" for="id_last">Last Name:</label>
+                <input type="text" class="form-control" name="last_name" value="{{user.last_name}}">
+            
+                <label class="col-lg-2 control-label" for="input_email">Email:</label>
+                <input type="text" class="form-control" name="email"  value="{{user.email_address}}"> 
+
+                <input type="submit" name="update" value="update">
+            </div>
+        </form>
+        <a href="/users/{{user.id}}">Show | </a>
+        <a href="/">Go Back</a>
+    </body>
+</html>

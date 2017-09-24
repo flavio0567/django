@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'semirestful/css/style.css' %}" media="screen" title="no title"  charset="utf-8">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/sandstone/bootstrap.min.css">
+        <title>New</title>
+    </head>
+    <body>
+        <h1>Add a new user</h1>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <form class="form-group" action="/users/create" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label class="col-lg-2 control-label" for="first_name">Frist Name:</label>
+                <input type="text" class="form-control" name="first_name"> 
+            
+                <label class="col-lg-2 control-label" for="last_name">Last Name:</label>
+                <input type="text" class="form-control" name="last_name"> 
+            
+                <label class="col-lg-2 control-label" for="email">Email:</label>
+                <input type="text" class="form-control" name="email"> 
+
+                <button class="btn btn-primary btn-sm" type="submit" value="Submit">Create</button>
+            </div>
+        </form>
+        <a href="/">Go Back</a>
+    </body>
+</html>
