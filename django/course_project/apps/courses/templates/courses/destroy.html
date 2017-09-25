@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'courses/css/style.css' %}" media="screen" title="no title"  charset="utf-8">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/sandstone/bootstrap.min.css">
+        <title>New Course</title>
+    </head>
+    <body>
+        <h1>Are you sure you want to delete the following course?</h1>
+
+        <form class="form-group" action="/courses/{{user.id}}"  method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label class="col-lg-2 control-label" for="id_name">Name:</label>
+                <input type="text" class="form-control" name="name" value="{{course.name}}">
+
+                <label class="col-lg-2 control-label" for="id_desc">Description:</label>
+                <input type="text" class="form-control" name="desc" value="{{course.desc}}">
+
+                {% if comments %}
+                <ul>
+                    {% for comment in comments %}
+                        <h4><li>{{comment.comment}} - {{comment.created_at}}</li></h4>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+
+                <a class="btn btn-info" href="/">No</a>
+                <a class="btn btn-danger" href="/courses/{{course.id}}/destroy">Yes! I want to delete this</a>
+
+            </div>
+        </form>
+    </body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      {% load static %}
+      <link rel="stylesheet" href="{% static 'courses/css/style.css' %}" media="screen" title="no title"  charset="utf-8">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/sandstone/bootstrap.min.css">
+      <title>Comments</title>
+  </head>
+  <body>
+      <h1>Course Comments</h1><br>
+      {% if messages %}
+      <ul class="messages">
+          {% for message in messages %}
+              <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+          {% endfor %}
+      </ul>
+      {% endif %}
+      <p>Name: {{ course.name }}</p>
+      <p>Description: {{ course.desc }}</p>
+
+      <form class="form-group" action="/courses/{{course.id}}/newcomment" method="POST">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="textArea" class="col-lg-2 control-label">Leave a Comment:</label>
+            <div class="col-lg-10">
+                <textarea class="form-control" rows="3" name="comment"></textarea>
+            </div>
+
+              <p><input class="btn btn-info btn-sm" id="id_comment" type="submit" name="submit" value="Add Comment"></p>
+              <a href="/">Go Back</a>
+      </form>
+      {% if comments %}
+      <ul>
+          {% for comment in comments %}
+              <h4><li>{{comment.comment}} - {{comment.created_at}}</li></h4>
+          {% endfor %}
+      </ul>
+      {% endif %}
+  </body>
+</html>
